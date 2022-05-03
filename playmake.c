@@ -34,7 +34,7 @@ int main(int argc, char** args){
 		if(opt == 'i')	info = optarg;
 		if(opt == 'p')	filedir = optarg;
 		if(opt != 'f' && opt != 'd' && opt != 'i' && opt != 'p'){
-			printf("Usage: playmake\n\t-d\tdirectory with playable files (default: ./)\n\t-f\tfile/pathname for pla    ylist file (    default: playlist.m3u)\n\t-i\tinfo about playlist like name-artist etc. (default: example)\n\t-d\tdirectory of playlist file\n");
+			printf("Usage: playmake\n\t-d\tdirectory with playable files (default: .)\n\t-f\tfile/pathname for pla    ylist file (    default: playlist.m3u)\n\t-i\tinfo about playlist like name-artist etc. (default: example)\n\t-d\tdirectory of playlist file (default: ./)\n");
 			return 1;
 		}
 	}
