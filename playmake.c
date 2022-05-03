@@ -9,6 +9,7 @@
 #include <string.h>
 #include <getopt.h>
 #include <regex.h>
+#include <stdlib.h>
 
 int regMatch(char* string, char* exp){
 	regex_t re;
@@ -34,7 +35,7 @@ int main(int argc, char** args){
 		if(opt == 'i')	info = optarg;
 		if(opt == 'p')	filedir = optarg;
 		if(opt != 'f' && opt != 'd' && opt != 'i' && opt != 'p'){
-			printf("Usage: playmake\n\t-d\tdirectory with playable files (default: .)\n\t-f\tfile/pathname for pla    ylist file (    default: playlist.m3u)\n\t-i\tinfo about playlist like name-artist etc. (default: example)\n\t-d\tdirectory of playlist file (default: ./)\n");
+			printf("Usage: playmake\n\t-d\tdirectory with playable files (default: .)\n\t-f\tfile/pathname for playlist file (default: playlist.m3u)\n\t-i\tinfo about playlist like name-artist etc. (default: example)\n\t-p\tdirectory of playlist file (default: ./)\n");
 			return 1;
 		}
 	}
@@ -44,9 +45,17 @@ int main(int argc, char** args){
 	if(!filename)	filename = "playlist.m3u";
 	if(!info)	info = "example";
 	if(!filedir)	filedir = ".";
+	
+	// concatenate filedir and filename
+	char* filepath;
+	if((filepath = calloc((strlen(filedir) * strlen(filename) + 2), sizeof(char)))){
+		strcat(filepath, filedir);
+		strcat(filepath, "/");
+		strcat(filepath, filename);
+	}
 
 	FILE* f;	// playlist file
-	f = fopen(filename, "w");
+	f = fopen(filepath, "w");
 	DIR* d;
 	d = opendir(dirname);
 	struct dirent *dent;
@@ -61,6 +70,6 @@ int main(int argc, char** args){
 		closedir(d);
 	}
 	fclose(f);
-
+	free(filepath);
 	return 0;
 }
