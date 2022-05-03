@@ -11,7 +11,6 @@
 #include <string.h>
 #include <getopt.h>
 #include <regex.h>
-#include <stdlib.h>
 
 int regMatch(char* string, char* exp){
 	regex_t re;
